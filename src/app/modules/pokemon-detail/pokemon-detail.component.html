@@ -1,0 +1,34 @@
+<div class="container">
+  <mat-card class="card">
+    <span class="spacer"></span>
+    <span class="pokemonId">#{{pokemon?.id}}</span>
+    <img [src]="pokemon?.img" [alt]="pokemon?.name">
+    <h1>{{pokemon?.name?.toUpperCase()}}</h1>
+    <p>Height: {{pokemon.height}}</p>
+    <p>Weight: {{pokemon.weight}}</p>
+    <section>
+      <p><strong>Type</strong></p>
+      <mat-chip-list>
+        <mat-chip *ngFor="let type of pokemon?.type" style="background: #f1c40f;">{{type}}</mat-chip>
+      </mat-chip-list>
+    </section>
+
+    <section>
+      <p><strong>Weaknesses</strong></p>
+      <mat-chip-list>
+        <mat-chip *ngFor="let weakness of pokemon?.weaknesses" style="background: #c0392b; color: white">{{weakness}}</mat-chip>
+      </mat-chip-list>
+    </section>
+
+    <section *ngIf="pokemon?.prev_evolution?.length > 0">
+      <p><strong>Previous Evolution</strong></p>
+      <mat-chip style="background: #1abc9c; color: white;">{{pokemon?.prev_evolution[pokemon?.prev_evolution?.length - 1]?.name}}</mat-chip>
+    </section>
+
+    <section *ngIf="pokemon?.next_evolution?.length > 0">
+      <p><strong>Next Evolution</strong></p>
+      <mat-chip style="background: #2ecc71;">{{pokemon?.next_evolution[0]?.name}}</mat-chip>
+    </section>
+  </mat-card>
+</div>
+

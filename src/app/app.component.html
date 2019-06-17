@@ -1,0 +1,37 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+  <mat-icon *ngIf="!!selectedPokemon" aria-hidden="false" aria-label="Back icon" class="back-nav-icon"
+            (click)="selectedPokemon = undefined">arrow_back
+  </mat-icon>
+  <span>Pokedex</span>
+  <span class="spacer"></span>
+  <span *ngIf="!selectedPokemon" class="search-container" [class.active]="isSearching">
+      <label for="pokemonSearch" style="cursor: pointer">
+        <mat-icon aria-hidden="false" aria-label="Search icon" (click)="setSearching()">search</mat-icon>
+      </label>
+      <input type="text"
+             id="pokemonSearch"
+             placeholder="Search by name or id"
+             [(ngModel)]="searchTerm"
+             (ngModelChange)="searchList(searchTerm)"
+             maxlength="20"
+             (blur)="!searchTerm?.length > 0 ? setSearching() : null">
+       <label for="pokemonSearch" style="cursor: pointer">
+        <mat-icon *ngIf="isSearching && searchTerm?.length > 0"
+                  matSuffix
+                  aria-hidden="false"
+                  aria-label="Clear input icon"
+                  (click)="searchTerm = undefined">close</mat-icon>
+       </label>
+    </span>
+</mat-toolbar>
+
+<div *ngIf="!selectedPokemon; else pokemonDetail" class="pokemonList">
+  <app-pokemon-card *ngFor="let pokemon of isSearching ? searchList(searchTerm) : pokemonArr"
+                    [pokemon]="pokemon"
+                    (isSelected)="onPokemonSelected($event)"></app-pokemon-card>
+</div>
+
+
+<ng-template #pokemonDetail>
+  <app-pokemon-detail class="details" [pokemon]="selectedPokemon"></app-pokemon-detail>
+</ng-template>

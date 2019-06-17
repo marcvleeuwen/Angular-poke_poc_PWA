@@ -1,0 +1,8 @@
+<mat-card class="card" (click)="onSelectedItem()">
+  <span class="spacer"></span>
+  <img [src]="pokemon?.img" [alt]="pokemon?.name">
+  <h1>{{pokemon?.name?.toUpperCase()}}</h1>
+  <mat-chip-list>
+    <mat-chip *ngFor="let type of pokemon?.type">{{type}}</mat-chip>
+  </mat-chip-list>
+</mat-card>
